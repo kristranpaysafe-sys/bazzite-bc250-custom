@@ -20,7 +20,8 @@ rm -f "${CLEAN_ROOT}/usr/lib/systemd/system/flatpak-add-fedora-repos.service"
 
 rm -rf "${CLEAN_ROOT}/.gitkeep"
 find "${CLEAN_ROOT}/var"/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
-find "${CLEAN_ROOT}/var/cache"/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
+find '//var/cache/*' -maxdepth 0 -type d '!' -name libdnf5 '!' -name rpm-ostree -exec rm -fr '{}' ';' || true
+
 
 # Clear tmpfs-backed runtime directories without deleting the directories
 # themselves. Buildah may have bind mounts in these paths during RUN, so
