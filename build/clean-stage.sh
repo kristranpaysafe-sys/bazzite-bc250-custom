@@ -2,7 +2,7 @@
 
 echo "::group:: ===$(basename "$0")==="
 
-set -eoux pipefail
+set -oux pipefail
 
 # CLEAN_ROOT: filesystem prefix applied to all paths.
 # Defaults to "/" so the variable is never empty (satisfies SC2115).
