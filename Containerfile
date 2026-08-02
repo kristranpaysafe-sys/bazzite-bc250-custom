@@ -147,10 +147,16 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx --mount=type=cache,dst=/var/
 
 ### passes. The script tolerates busy Buildah bind mounts while clearing contents.
 
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx 
---mount=type=tmpfs,dst=/tmp 
---mount=type=tmpfs,dst=/boot 
-/ctx/build/clean-stage.sh 
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache/libdnf5 \
+    --mount=type=cache,dst=/var/cache/rpm-ostree \
+    --mount=type=secret,id=GITHUB_TOKEN \
+    --mount=type=tmpfs,dst=/boot \
+    --mount=type=tmpfs,dst=/tmp \
+    /ctx/build/10-build.sh
+
+### CLEANUP
+
 
 ### /opt
 
